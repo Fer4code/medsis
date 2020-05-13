@@ -16,21 +16,19 @@ import { useHistory } from "react-router-dom";
 
 
 
-const styles = theme => ({
+const styles = {
   paper: {
-    //padding: "4vw",
-    //size: "4vw"
+    //padding: "0vw",
     //textAlign: "center",
     //color: "#000000",
     //whiteSpace: "nowrap",
     
     //marginTop: "2vh",
     //marginBottom: "0vh"
-    
   },
   media: {
-    height: 180,
-    paddingTop: '56.25%', // 16:9,
+    //height: 180,
+    //paddingTop: '56.25%', // 16:9,
     //marginTop:'30',
     //objectFit: 'cover'
   },
@@ -39,7 +37,7 @@ const styles = theme => ({
     width: '100%',
     objectFit: 'cover'
   }
-});
+};
 
 
 
@@ -53,7 +51,7 @@ export default function MaterialGrid() {
   return (
     <div container className="cont">
       <Grid container spacing={10} justify="center">
-        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+        <Grid item xl={4} lg={4} md={4} sm={6} xs={11} >
           <Paper className={classes.paper}>            
               <Card>
                 <CardActionArea style={styles.card}>
@@ -75,7 +73,7 @@ export default function MaterialGrid() {
               </Card>            
           </Paper>
         </Grid>
-        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+        <Grid item xl={4} lg={4} md={4} sm={6} xs={11} >
           <Paper className={classes.paper}>
           <Card>
                 <CardActionArea style={styles.card}>
@@ -97,7 +95,7 @@ export default function MaterialGrid() {
               </Card>
             </Paper>
         </Grid>
-        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+        <Grid item xl={4} lg={4} md={4} sm={6} xs={11} >
           <Paper className={classes.paper}>
             <Card>
                 <CardActionArea style={styles.card}>
@@ -119,7 +117,7 @@ export default function MaterialGrid() {
               </Card>
             </Paper>
         </Grid>
-        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+        <Grid item xl={4} lg={4} md={4} sm={6} xs={11} >
           <Paper className={classes.paper}>
           <Card>
                 <CardActionArea style={styles.card}>
@@ -141,7 +139,7 @@ export default function MaterialGrid() {
               </Card>
             </Paper>
         </Grid>
-        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+        <Grid item xl={4} lg={4} md={4} sm={6} xs={11} >
           <Paper className={classes.paper}><Card>
                 <CardActionArea style={styles.card}>
                   <CardMedia
@@ -162,7 +160,7 @@ export default function MaterialGrid() {
               </Card>
               </Paper>
         </Grid>
-        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+        <Grid item xl={4} lg={4} md={4} sm={6} xs={11} >
           <Paper className={classes.paper}><Card>
                 <CardActionArea style={styles.card}>
                   <CardMedia
@@ -176,7 +174,7 @@ export default function MaterialGrid() {
                   />
                   <CardActions>
                   <Button color="secondary" variant="contained" fullWidth>
-                    Noticias
+                    Citas
                   </Button>
                 </CardActions>
                 </CardActionArea>
