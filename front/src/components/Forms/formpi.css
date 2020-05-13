@@ -1,0 +1,37 @@
+#formpi {
+    width: 100%;    
+}
+.consult, .csympthons, .cpersonalrecords, .cfamilyrecords, .ccognitive, .cdiagnostic {
+    width: 98.3%;
+}
+.cname, .clast {
+    width: 25%;
+}
+.cname2, .clast2 {
+    width: 22%;
+}
+.ccheck {
+    width: 98.3%;
+}
+.cdocumenttype {
+    width: 10%;
+}
+.cidnumber .cbodycontext {
+    width: 23%;
+}
+.tel1, .tel2 {
+    width: 30%;
+}
+.cbirthdate {
+    width: 23%;
+}
+.cuser {
+    width: 15%;
+}
+.ctension, .ctexttemp {
+    font-family:'Times New Roman', serif;
+    padding-left: 2%;
+}
+.csistolica, .cdiastolica, .ctemp, .cpulse {
+    width: 9%
+}

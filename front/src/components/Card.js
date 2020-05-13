@@ -1,113 +1,189 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import "./cont.css";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { withRouter } from "react-router-dom";
 import Link from '@material-ui/core/Link';
+import { useHistory } from "react-router-dom";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
+
+const styles = theme => ({
+  paper: {
+    //padding: "4vw",
+    //size: "4vw"
+    //textAlign: "center",
+    //color: "#000000",
+    //whiteSpace: "nowrap",
+    
+    //marginTop: "2vh",
+    //marginBottom: "0vh"
+    
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+  media: {
+    height: 180,
+    paddingTop: '56.25%', // 16:9,
+    //marginTop:'30',
+    //objectFit: 'cover'
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
-}));
+    height: '10%',
+    width: '100%',
+    objectFit: 'cover'
+  }
+});
 
-const cards = [1, 2, 3, 4, 5, 6];
 
-export default function Album() {
+
+const useStyles = makeStyles(styles);
+
+export default function MaterialGrid() {
   const classes = useStyles();
-
+  const history = useHistory();
+  const register = () => history.push('/register');
+  
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main>
-        {/* Hero unit */}
-        
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
+    <div container className="cont">
+      <Grid container spacing={10} justify="center">
+        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+          <Paper className={classes.paper}>            
+              <Card>
+                <CardActionArea style={styles.card}>
                   <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+                    className="ccalendari"
+                    component="img"
+                    alt="Citas"                    
+                    image={require("./img/clinic.png")}
+                    style={styles.media}
+                    title="Citas"
+                    onClick={register}          
                   />
-                  
-                </Card>
-                
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </footer>
-      {/* End footer */}
-    </React.Fragment>
+                  <CardActions>
+                  <Button color="secondary" variant="contained" fullWidth>
+                    Citas
+                  </Button>
+                </CardActions>
+                </CardActionArea>
+              </Card>            
+          </Paper>
+        </Grid>
+        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+          <Paper className={classes.paper}>
+          <Card>
+                <CardActionArea style={styles.card}>
+                  <CardMedia
+                    className="ccalendari"
+                    component="img"
+                    alt="report"                    
+                    image={require("./img/report.png")}
+                    style={styles.media}
+                    title="Historias"
+                    onClick={register}          
+                  />
+                  <CardActions>
+                  <Button color="secondary" variant="contained" fullWidth>
+                    Historias
+                  </Button>
+                </CardActions>
+                </CardActionArea>
+              </Card>
+            </Paper>
+        </Grid>
+        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+          <Paper className={classes.paper}>
+            <Card>
+                <CardActionArea style={styles.card}>
+                  <CardMedia
+                    className="ccalendari"
+                    component="img"
+                    alt="Citas"                    
+                    image={require("./img/dna.png")}
+                    style={styles.media}
+                    title="Investigacion"
+                    onClick={register}          
+                  />
+                  <CardActions>
+                  <Button color="secondary" variant="contained" fullWidth>
+                    Investigacion
+                  </Button>
+                </CardActions>
+                </CardActionArea>
+              </Card>
+            </Paper>
+        </Grid>
+        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+          <Paper className={classes.paper}>
+          <Card>
+                <CardActionArea style={styles.card}>
+                  <CardMedia
+                    className="ccalendari"
+                    component="img"
+                    alt="Citas"                    
+                    image={require("./img/qualification.png")}
+                    style={styles.media}
+                    title="Examenes"
+                    onClick={register}          
+                  />
+                  <CardActions>
+                  <Button color="secondary" variant="contained" fullWidth>
+                    Examenes
+                  </Button>
+                </CardActions>
+                </CardActionArea>
+              </Card>
+            </Paper>
+        </Grid>
+        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+          <Paper className={classes.paper}><Card>
+                <CardActionArea style={styles.card}>
+                  <CardMedia
+                    className="ccalendari"
+                    component="img"
+                    alt="Citas"                    
+                    image={require("./img/pills.png")}
+                    style={styles.media}
+                    title="Citas"
+                    onClick={register}          
+                  />
+                  <CardActions>
+                  <Button color="secondary" variant="contained" fullWidth>
+                    Medicamentos
+                  </Button>
+                </CardActions>
+                </CardActionArea>
+              </Card>
+              </Paper>
+        </Grid>
+        <Grid item xl={4} lg={5} md={6} sm={6} xs={11} >
+          <Paper className={classes.paper}><Card>
+                <CardActionArea style={styles.card}>
+                  <CardMedia
+                    className="ccalendari"
+                    component="img"
+                    alt="Citas"                    
+                    image={require("./img/newspaper.png")}
+                    style={styles.media}
+                    title="Citas"
+                    onClick={register}          
+                  />
+                  <CardActions>
+                  <Button color="secondary" variant="contained" fullWidth>
+                    Noticias
+                  </Button>
+                </CardActions>
+                </CardActionArea>
+              </Card>
+              </Paper>
+        </Grid>
+      </Grid>
+    </div>
   );
-}
+};

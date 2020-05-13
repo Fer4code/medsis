@@ -15,6 +15,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import './formpi.css'
+import Typography from '@material-ui/core/Typography'
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -53,12 +54,31 @@ const doctype = [
       label: 'E-',
     },
   ];
+  const bcontext = [
+    {
+      value: 'Robusto',
+      label: 'Robusto',
+    },
+    {
+      value: 'Flaco',
+      label: 'Flaco',
+    },
+    {
+      value: 'Sobrepeso',
+      label: 'Sobrepeso',
+    }
+  ];
 
     export default function FormPropsTextFields() {
     const classes = useStyles();
     const [documenttype, setDocument] = React.useState('V-')
     const [social, setSocial] = React.useState('Instagram')
+    const [bodycontext, setContext] = React.useState(bcontext)
     const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+    const context = (event) => {
+      setContext(event.target.value)
+    }
 
     const handleDateChange = (date) => {
       setSelectedDate(date);
@@ -192,28 +212,6 @@ const doctype = [
     
   return (
     <form className={classes.root} autoComplete="off" id="formpi">
-      <Autocomplete
-      multiple
-      className="ccheck"
-      id="checkboxes-tags-demo"
-      options={top100Films}
-      disableCloseOnSelect
-      getOptionLabel={(option) => option.title}
-      renderOption={(option, { selected }) => (
-        <React.Fragment>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            
-            checked={selected}
-          />
-          {option.title}
-        </React.Fragment>
-      )}
-      renderInput={(params) => (
-        <TextField {...params} variant="outlined" label="Checkboxes" placeholder="Favorites" />
-      )}
-    />
         <TextField className="cname"
           id="name"
           required
@@ -245,6 +243,32 @@ const doctype = [
           defaultValue=''
           variant="outlined"
         />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+        className="cbirthdate"
+        autoOk
+        variant="inline"
+        inputVariant="outlined"
+        label="Fecha de nacimiento"
+        format="dd/MM/yyyy"
+        disableFuture
+        orientation="landscape"
+        rightArrowIcon
+        maxDateMessage="Fecha posterior al dia de hoy"
+        value={selectedDate}
+        InputAdornmentProps={{ position: "start" }}
+        onChange={date => handleDateChange(date)}
+      />
+        </MuiPickersUtilsProvider>
+        <TextField className="cage"
+          id="age"
+          label="Age"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />
         <TextField className="cdocumenttype"
           id="documenttype"
           required
@@ -272,7 +296,7 @@ const doctype = [
           inputComponent: NumberFormatCustom,
         }}
         variant="outlined"/>
-        <TextField className="tel1"
+        <TextField className="ctel1"
         id= "tel1"
         label="Telefono"
         type="text"
@@ -282,7 +306,7 @@ const doctype = [
             inputComponent: Tel,
           }}
         variant="outlined"/>
-        <TextField className="tel2"
+        <TextField className="ctel2"
         id= "tel2"
         label="Telefono opcional"
         type="text"
@@ -299,8 +323,8 @@ const doctype = [
           defaultValue=''
           variant="outlined"          
         />
-        <TextField id="social"
-          style={{ width: 250 }}
+        <TextField className="csocial"
+          id="social"
           select
           label="Red Social"
           defaultValue="IG"
@@ -315,31 +339,42 @@ const doctype = [
             </MenuItem>
           ))}
         </TextField>
-        <TextField
+        <TextField className="cuser"
           id="redsocial"
           label="Usuario"
           defaultValue=''
           variant="outlined"
         />
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
-        className="cbirthdate"
-        autoOk
-        variant="inline"
-        inputVariant="outlined"
-        label="Fecha de nacimiento"
-        format="dd/MM/yyyy"
-        disableFuture
-        orientation="landscape"
-        rightArrowIcon
-        maxDateMessage="Fecha posterior al dia de hoy"
-        value={selectedDate}
-        InputAdornmentProps={{ position: "start" }}
-        onChange={date => handleDateChange(date)}
-      />
-        </MuiPickersUtilsProvider>
+        <TextField className="cbirthplace"
+          id="birthplace"
+          required
+          label="Lugar de nacimiento"
+          placeholder="Ciudad, Estado, Pais"
+          defaultValue=''
+          variant="outlined"
+          helperText=""
+        />
+        <TextField className="cresidenceplace"
+          id="residenceplace"
+          required
+          label="Lugar de residencia"
+          placeholder="Ciudad, Estado, Pais"
+          defaultValue=''
+          variant="outlined"
+          helperText=""
+        />
+        <TextField className="cprofession"
+          id="profession"
+          required
+          label="Profesion"
+          placeholder=""
+          defaultValue=''
+          variant="outlined"
+          helperText=""
+        />
         <FormControlLabel
           value="top"
+          required
           control={<Switch color="primary" />}
           label="Alergias"
           labelPlacement="top"
@@ -351,47 +386,118 @@ const doctype = [
           label="Antecedentes"
           labelPlacement="top"
         />
+        <Autocomplete
+      multiple
+      className="ccheck"
+      id="checkboxes-tags-demo"
+      options={top100Films}      
+      getOptionLabel={(option) => option.title}
+      renderInput={(params) => (
+        <TextField {...params} variant="outlined" label="Alergias" placeholder="Alergias" />
+      )}
+    />
         <TextField className="consult"
           id="consult"
           label="Motivo de la consulta"
           multiline
-          rows={4}
           placeholder="Motivo de la consulta"
           variant="outlined"
         />
-        <TextField
-          id="sympthons"
-          fullWidth
-          label="Sintomas"
+        <Autocomplete className="csympthons"
+          multiple
+          id="checkboxes-tags-demo"
+          options={top100Films}      
+          getOptionLabel={(option) => option.title}
+          renderInput={(params) => (
+            <TextField {...params} variant="outlined" label="Sintomas" placeholder="Sintomas" />
+          )}
+        />
+        <TextField className="cpersonalrecords"
+          id="personalrecords"
+          label="Antecedentes personales"
           multiline
-          rows={4}
-          placeholder="Sintomas"
+          placeholder="Antecedentes personales"
           variant="outlined"
         />
-        <TextField
-          id="outlined-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
+        <TextField className="cfamilyrecords"
+          id="familyrecords"
+          label="Antecedentes familiares"
+          multiline
+          placeholder="Antecedentes familiares"
           variant="outlined"
         />
+        <Typography className="ctension"
+        variant="h6" 
+        color="initial"
+        >Tension arterial</Typography>
+        <TextField className="csistolica"
+          id="tsistolica"
+          label="Sistolica"
+          placeholder="Sistolica"
+          variant="outlined"
+          helperText="mmHg"
+        />
+        <TextField className="cdiastolica"
+          id="tdiastolica"
+          label="Diastolica"
+          placeholder="Diastolica"
+          variant="outlined"
+          helperText="mmHg"
+        />
+        <TextField className="cpulse"
+          id="pulse"
+          label="Pulso"
+          placeholder="Pulso"
+          variant="outlined"
+          helperText="P/min"
+        />
         <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
+          className="crespiratoryfreq"
+          id="respiratoryfreq"
+          label="Frecuencia respiratoria"
+          defaultValue=''
           variant="outlined"
         />
-        <TextField id="outlined-search" label="Search field" type="search" variant="outlined" />
-        <TextField
-          id="outlined-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
+        <Typography className="ctexttemp"
+        variant="h6" 
+        color="initial"
+        >Temperatura</Typography>
+        <TextField className="ctemp"
+          id="temp"
+          label="Temp"
+          placeholder="Temp"
+          variant="outlined"
+          helperText=" °C"
+        />
+        <TextField className="cbodycontext"
+          id="bodycontext"
+          required
+          select
+          label="Contextura"
+          defaultValue=""
+          value={bodycontext}
+          onChange={context}
+          variant="outlined"
+        >
+          {bcontext.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField className="ccognitive"
+          id="cognitive"
+          label="Rasgos cognitivos"
+          multiline
+          placeholder="Rasgos cognitivos"
+          variant="outlined"
+        />
+        <TextField className="cdiagnostic"
+          id="diagnostic"
+          label="Diagnostico"
+          name="diagnostico"
+          multiline
+          placeholder="Diagnostico"
           variant="outlined"
         />
     </form>

@@ -1,0 +1,11 @@
+.cgrid {
+    text-align: fixed;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.cappointment {
+    justify-content: center;
+}
