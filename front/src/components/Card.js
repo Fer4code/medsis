@@ -6,37 +6,17 @@ import "./cont.css";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import { withRouter } from "react-router-dom";
-import Link from '@material-ui/core/Link';
 import { useHistory } from "react-router-dom";
 
 
 
 const styles = {
   paper: {
-    //padding: "0vw",
-    //textAlign: "center",
-    //color: "#000000",
-    //whiteSpace: "nowrap",
-    
-    //marginTop: "2vh",
-    //marginBottom: "0vh"
-  },
-  media: {
-    //height: 180,
-    //paddingTop: '56.25%', // 16:9,
-    //marginTop:'30',
-    //objectFit: 'cover'
-  },
-  card: {
-    height: '10%',
-    width: '100%',
-    objectFit: 'cover'
+    width: '15rem'
   }
+
 };
 
 
@@ -51,8 +31,8 @@ export default function MaterialGrid() {
   return (
     <div container className="cont">
       <Grid container spacing={10} justify="center">
-        <Grid item xl={4} lg={4} md={4} sm={6} xs={11} >
-          <Paper className={classes.paper}>            
+        <Grid item xl={4} lg={4} md={4} sm={6} xs={11}  >
+          <Paper className={classes.paper} >            
               <Card>
                 <CardActionArea style={styles.card}>
                   <CardMedia
@@ -60,7 +40,7 @@ export default function MaterialGrid() {
                     component="img"
                     alt="Citas"                    
                     image={require("./img/clinic.png")}
-                    style={styles.media}
+                    
                     title="Citas"
                     onClick={register}          
                   />
@@ -82,7 +62,7 @@ export default function MaterialGrid() {
                     component="img"
                     alt="report"                    
                     image={require("./img/report.png")}
-                    style={styles.media}
+                    
                     title="Historias"
                     onClick={register}          
                   />
@@ -104,7 +84,7 @@ export default function MaterialGrid() {
                     component="img"
                     alt="Citas"                    
                     image={require("./img/dna.png")}
-                    style={styles.media}
+                    
                     title="Investigacion"
                     onClick={register}          
                   />
@@ -126,7 +106,7 @@ export default function MaterialGrid() {
                     component="img"
                     alt="Citas"                    
                     image={require("./img/qualification.png")}
-                    style={styles.media}
+                    
                     title="Examenes"
                     onClick={register}          
                   />
@@ -147,7 +127,6 @@ export default function MaterialGrid() {
                     component="img"
                     alt="Citas"                    
                     image={require("./img/pills.png")}
-                    style={styles.media}
                     title="Citas"
                     onClick={register}          
                   />
@@ -168,7 +147,6 @@ export default function MaterialGrid() {
                     component="img"
                     alt="Citas"                    
                     image={require("./img/newspaper.png")}
-                    style={styles.media}
                     title="Citas"
                     onClick={register}          
                   />
