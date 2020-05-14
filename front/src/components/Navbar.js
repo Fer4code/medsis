@@ -32,7 +32,7 @@ class Landing extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/" className="nav-link">
+          <Link to="./Formpi" className="nav-link">
             Formpi
           </Link>
         </li>
