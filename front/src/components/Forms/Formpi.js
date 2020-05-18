@@ -1,252 +1,359 @@
-import React from 'react'
+import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import {  MuiPickersUtilsProvider, KeyboardDatePicker, } from '@material-ui/pickers';
 import MenuItem from '@material-ui/core/MenuItem';
+import DateFnsUtils from '@date-io/date-fns';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
-import {  MuiPickersUtilsProvider, KeyboardDatePicker, } from '@material-ui/pickers';
-import 'date-fns'
-import DateFnsUtils from '@date-io/date-fns';
-import Switch from '@material-ui/core/Switch'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import './formpi.css'
-import Typography from '@material-ui/core/Typography'
+import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import SwipeableViews from 'react-swipeable-views';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      
-    },
-  },
-}));
+ 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-const socialmedia = [
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  );
+}
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
+  };
+}
+function tab2Props(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
+  };
+}
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+  const [documenttype, setDocument] = React.useState('V-')  
+  return (
+    <NumberFormat
+      {...other}
+      decimalSeparator={false}
+      thousandSeparator={'.'}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+
+      isNumericString
+      maxLength="12"
+      prefix={documenttype}
+    />
+  );
+}
+function Tel(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      format="+(##)### ###-####"
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            tel: props.tel,
+            value: values.value,
+          },
+        });
+      }}
+
+      isNumericString
+    />
+  );
+}
+
+  Tel.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+const bloodtype = [
   {
-    value: 'Facebook',
-    label: 'FB',
+    value: 'A positivo',
+    label: 'A+',
   },
   {
-    value: 'Instagram',
-    label: 'IG',
+    value: 'A negativo',
+    label: 'A-',
   },
   {
-    value: 'Twitter',
-    label: 'TW',
+    value: 'B positivo',
+    label: 'B+',
+  },
+  {
+    value: 'B negativo',
+    label: 'B-',
+  },
+  {
+    value: 'O positivo',
+    label: 'O+',
+  },
+  {
+    value: 'O negativo',
+    label: 'O-',
+  },
+  {
+    value: 'AB positivo',
+    label: 'AB+',
+  },
+  {
+    value: 'AB negativo',
+    label: 'AB-',
+  },
+  {
+    value: 'Desconocido',
+    label: 'Desconoce',
   }
 ];
-
+const sextype = [
+  {
+    value: 'F',
+    label: 'Femenino',
+  },
+  {
+    value: 'M',
+    label: 'Masculino',
+  },
+];
+const mstatus = [
+  {
+    value: 'Soltero',
+    label: 'Soltero'
+  },
+  {
+    value: 'Casado',
+    label: 'Casado'
+  }, {
+    value: 'Divorciado',
+    label: 'Divorciado'
+  },
+  {
+    value: 'Viudo',
+    label: 'Viudo'
+  },
+]
 const doctype = [
-    {
-      value: 'V-',
-      label: 'V-',
-    },
-    {
-      value: 'E-',
-      label: 'E-',
-    },
-  ];
-  const bcontext = [
-    {
-      value: 'Robusto',
-      label: 'Robusto',
-    },
-    {
-      value: 'Flaco',
-      label: 'Flaco',
-    },
-    {
-      value: 'Sobrepeso',
-      label: 'Sobrepeso',
-    }
-  ];
+  {
+    value: 'V-',
+    label: 'V-',
+  },
+  {
+    value: 'E-',
+    label: 'E-',
+  },
+];
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(20),
+    fontWeight: theme.typography.h2,
+  },  
+}));
 
-    export default function FormPropsTextFields() {
-    const classes = useStyles();
-    const [documenttype, setDocument] = React.useState('V-')
-    const [social, setSocial] = React.useState('Instagram')
-    const [bodycontext, setContext] = React.useState(bcontext)
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+export default function SignUp() {
+  const classes = useStyles();
+  const [documenttype, setDocument] = React.useState('V-')
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [blood, setBlood] = React.useState('')
+  const [sex, setSex] = React.useState('')
+  const [mastatus, setStatus] = React.useState('')
+  const theme = useTheme();
+  const [tab1value, settab1Value] = React.useState(0);
+  const [tab2value, settab2Value] = React.useState(0);
 
-    const context = (event) => {
-      setContext(event.target.value)
-    }
-
-    const handleDateChange = (date) => {
-      setSelectedDate(date);
-    };
-    const socialChange = (event) => {
-      setSocial(event.target.value)
-    }
-    const handleChange = (event) => {
-        setDocument(event.target.value);
-    };
-    const [values, setValues] = React.useState({
-        numberformat: '',
-    }); 
-
-    
-    function NumberFormatCustom(props) {
-        const { inputRef, onChange, ...other } = props;
-      
-        return (
-          <NumberFormat
-            {...other}
-            decimalSeparator={false}
-            thousandSeparator={'.'}
-            getInputRef={inputRef}
-            onValueChange={(values) => {
-              onChange({
-                target: {
-                  name: props.name,
-                  value: values.value,
-                },
-              });
-            }}
-
-            isNumericString
-            maxLength="12"
-            prefix={documenttype}
-          />
-        );
-      }
-      
-      NumberFormatCustom.propTypes = {
-        inputRef: PropTypes.func.isRequired,
-        onChange: PropTypes.func.isRequired,
-    };
-    function Tel(props) {
-        const { inputRef, onChange, ...other } = props;
-      
-        return (
-          <NumberFormat
-            {...other}
-            format="+(##)### ###-####"
-            getInputRef={inputRef}
-            onValueChange={(values) => {
-              onChange({
-                target: {
-                  tel: props.tel,
-                  value: values.value,
-                },
-              });
-            }}
-
-            isNumericString
-          />
-        );
-      }
-      
-        Tel.propTypes = {
-        inputRef: PropTypes.func.isRequired,
-        onChange: PropTypes.func.isRequired,
-    };
-    function Tel2(props) {
-      const { inputRef, onChange, ...other } = props;
-    
-      return (
-        <NumberFormat
-          {...other}
-          format="+(##)### ###-####"
-          getInputRef={inputRef}
-          onValueChange={(values) => {
-            onChange({
-              target: {
-                tel2: props.tel,
-                value2: values.value,
-              },
-            });
-          }}
-
-          isNumericString
-        />
-      );
-    }
-    
-      Tel2.propTypes = {
-      inputRef: PropTypes.func.isRequired,
-      onChange: PropTypes.func.isRequired,
+  const tab1handleChange = (event, newValue) => {
+    settab1Value(newValue);
   };
-    const top100Films = [
-      { title: 'The Shawshank Redemption', year: 1994 },
-      { title: 'The Godfather', year: 1972 },
-      { title: 'The Godfather: Part II', year: 1974 },
-      { title: 'The Dark Knight', year: 2008 },
-      { title: '12 Angry Men', year: 1957 },
-      { title: "Schindler's List", year: 1993 },
-      { title: 'Pulp Fiction', year: 1994 },
-      { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-      { title: 'The Good, the Bad and the Ugly', year: 1966 },
-      { title: 'Fight Club', year: 1999 },
-      { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-      { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-      { title: 'Forrest Gump', year: 1994 },
-      { title: 'Inception', year: 2010 },
-      { title: 'The Lord of the Rings: The Two Towers', year: 2002 },
-      { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-      { title: 'Goodfellas', year: 1990 },
-      { title: 'The Matrix', year: 1999 },
-      { title: 'Seven Samurai', year: 1954 },
-      { title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
-      { title: 'City of God', year: 2002 },
-      { title: 'Se7en', year: 1995 },
-      { title: 'The Silence of the Lambs', year: 1991 },
-      { title: "It's a Wonderful Life", year: 1946 },
-      { title: 'Life Is Beautiful', year: 1997 },
-      { title: 'The Usual Suspects', year: 1995 },
-      { title: 'Léon: The Professional', year: 1994 },
-      { title: 'Spirited Away', year: 2001, },
-      { title: 'Saving Private Ryan', year: 1998 },
-      { title: 'Once Upon a Time in the West', year: 1968 },
-      { title: 'American History X', year: 1998 },
-      { title: 'Interstellar', year: 2014 },
-    ];
-    
-  return (
-    <form className={classes.root} autoComplete="off" id="formpi" >
-        <TextField className="cname"
-          id="name"
-          required
-          label="Primer Nombre"
-          defaultValue=''
-          variant="outlined"
-          helperText="Indique su primer nombre"
-        />
-        <TextField
-          className="cname2"
-          id="name2"
-          label="Segundo Nombre"
-          defaultValue=''
-          variant="outlined"
-        />
-         <TextField
-          className="clast"
-          id="last"
-          required
-          label="Primer Apellido"
-          defaultValue=''
-          variant="outlined"
-        />
-         <TextField
-          className="clast2"
-          id="last2"
-          label="Segundo Apellido"
-          name="Segundo apellido"
-          defaultValue=''
-          variant="outlined"
-        />
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
+  const tab1handleChangeIndex = index => {
+    settab1Value(index);
+  };
+  const tab2handleChange = (event, newValue) => {
+    settab2Value(newValue);
+  };
+
+  const tab2handleChangeIndex = index => {
+    settab2Value(index);
+  };
+
+  const statusSelect = (event) => {
+    setStatus(event.target.value)
+  }
+
+  const sexSelect = (event) => {
+    setSex(event.target.value)
+  }
+
+  const bloodSelect = (event) => {
+    setBlood(event.target.value)
+  }
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+  const docChange = (event) => {
+    setDocument(event.target.value);
+};
+
+return (
+    <Container component="main" maxWidth="lg">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar} >
+          <PersonAddIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Historia médica
+        </Typography>
+        <form className={classes.form} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+                
+              />
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="sname"
+                name="secondName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="Segundo Nombre"
+                autoFocus
+                
+              />
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="lname"
+                name="last_name"
+                variant="outlined"
+                required
+                fullWidth
+                id="last_name"
+                label="Apellido"
+                autoFocus
+                
+              />
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="lname2"
+                name="second_last_name"
+                variant="outlined"
+                required
+                fullWidth
+                id="second_last_name"
+                label="Segundo Apellido"
+                autoFocus
+                
+              />
+            </Grid>
+            <ExpansionPanel defaultExpanded>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography className={classes.heading} variant="h6">Datos Personales</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <Grid container spacing={2}>
+          <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
         className="cbirthdate"
         autoOk
+        fullWidth
         variant="inline"
         inputVariant="outlined"
         label="Fecha de nacimiento"
@@ -260,246 +367,448 @@ const doctype = [
         onChange={date => handleDateChange(date)}
       />
         </MuiPickersUtilsProvider>
-        <TextField className="cage"
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <TextField className="cage"
           id="age"
           label="Age"
-          defaultValue="Hello World"
+          fullWidth
+          
+          defaultValue="Age"
           InputProps={{
             readOnly: true,
           }}
           variant="outlined"
         />
-        <TextField className="cdocumenttype"
-          id="documenttype"
-          required
-          select
-          label="Tipo de documento"
-          defaultValue="V-"
-          value={documenttype}
-          onChange={handleChange}
-          variant="outlined"
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <TextField className="csex"
+              id="isex"
+              required
+              select
+              autoComplete
+              fullWidth
+              label="Sexo"
+              value={sex}
+              onChange={sexSelect}         
+              variant="outlined"
         >
-          {doctype.map((option) => (
+              {sextype.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
         </TextField>
-        <TextField className="cidnumber"
-        id="idnumber"
-        required
-        label="Nro de cedula"
-        type="input"
-        defaultValue=''        
-        startadornment={<InputAdornment position="start">{documenttype}</InputAdornment>}
-        InputProps={{
-          inputComponent: NumberFormatCustom,
-        }}
-        variant="outlined"/>
-        <TextField className="ctel1"
-        id= "tel1"
-        label="Telefono"
-        type="text"
-        value='58'
-        name=""
-        InputProps={{
-            inputComponent: Tel,
-          }}
-        variant="outlined"/>
-        <TextField className="ctel2"
-        id= "tel2"
-        label="Telefono opcional"
-        type="text"
-        value=''
-        name=""
-        InputProps={{
-            inputComponent: Tel2,
-          }}
-        variant="outlined"/>
-        <TextField id="email"
-          style={{ width: 310 }}
-          label="Correo Electronico"
-          htmlFor="email"
-          defaultValue=''
-          variant="outlined"          
-        />
-        <TextField className="csocial"
-          id="social"
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <TextField className="tblood"
+          id="bloodtype"
           select
-          label="Red Social"
-          defaultValue="IG"
-          value={social}
-          onChange={socialChange}         
-          helperText="Red Social"
+          fullWidth
+          label="Tipo de sangre"
+          value={blood}
+          onChange={bloodSelect}         
           variant="outlined"
         >
-          {socialmedia.map((option) => (
+          {bloodtype.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
         </TextField>
-        <TextField className="cuser"
-          id="redsocial"
-          label="Usuario"
-          defaultValue=''
-          variant="outlined"
-        />
-        <TextField className="cbirthplace"
-          id="birthplace"
-          required
-          label="Lugar de nacimiento"
-          placeholder="Ciudad, Estado, Pais"
-          defaultValue=''
-          variant="outlined"
-          helperText=""
-        />
-        <TextField className="cresidenceplace"
-          id="residenceplace"
-          required
-          label="Lugar de residencia"
-          placeholder="Ciudad, Estado, Pais"
-          defaultValue=''
-          variant="outlined"
-          helperText=""
-        />
-        <TextField className="cprofession"
-          id="profession"
-          required
-          label="Profesion"
-          placeholder=""
-          defaultValue=''
-          variant="outlined"
-          helperText=""
-        />
-        <FormControlLabel
-          value="top"
-          required
-          control={<Switch color="primary" />}
-          label="Alergias"
-          labelPlacement="top"
-          
-        />
-        <FormControlLabel
-          value="top"
-          control={<Switch color="primary" />}
-          label="Antecedentes"
-          labelPlacement="top"
-        />
-        <Autocomplete
-      multiple
-      className="ccheck"
-      id="checkboxes-tags-demo"
-      options={top100Films}      
-      getOptionLabel={(option) => option.title}
-      renderInput={(params) => (
-        <TextField {...params} variant="outlined" label="Alergias" placeholder="Alergias" />
-      )}
-    />
-        <TextField className="consult"
-          id="consult"
-          label="Motivo de la consulta"
-          multiline
-          placeholder="Motivo de la consulta"
-          variant="outlined"
-        />
-        <Autocomplete className="csympthons"
-          multiple
-          id="checkboxes-tags-demo"
-          options={top100Films}      
-          getOptionLabel={(option) => option.title}
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" label="Sintomas" placeholder="Sintomas" />
-          )}
-        />
-        <TextField className="cpersonalrecords"
-          id="personalrecords"
-          label="Antecedentes personales"
-          multiline
-          placeholder="Antecedentes personales"
-          variant="outlined"
-        />
-        <TextField className="cfamilyrecords"
-          id="familyrecords"
-          label="Antecedentes familiares"
-          multiline
-          placeholder="Antecedentes familiares"
-          variant="outlined"
-        />
-        <Typography className="ctension"
-        variant="h6" 
-        color="initial"
-        >Tension arterial</Typography>
-        <TextField className="csistolica"
-          id="tsistolica"
-          label="Sistolica"
-          placeholder="Sistolica"
-          variant="outlined"
-          helperText="mmHg"
-        />
-        <TextField className="cdiastolica"
-          id="tdiastolica"
-          label="Diastolica"
-          placeholder="Diastolica"
-          variant="outlined"
-          helperText="mmHg"
-        />
-        <TextField className="cpulse"
-          id="pulse"
-          label="Pulso"
-          placeholder="Pulso"
-          variant="outlined"
-          helperText="P/min"
-        />
-        <TextField
-          className="crespiratoryfreq"
-          id="respiratoryfreq"
-          label="Frecuencia respiratoria"
-          defaultValue=''
-          variant="outlined"
-        />
-        <Typography className="ctexttemp"
-        variant="h6" 
-        color="initial"
-        >Temperatura</Typography>
-        <TextField className="ctemp"
-          id="temp"
-          label="Temp"
-          placeholder="Temp"
-          variant="outlined"
-          helperText=" °C"
-        />
-        <TextField className="cbodycontext"
-          id="bodycontext"
-          required
-          select
-          label="Contextura"
-          defaultValue=""
-          value={bodycontext}
-          onChange={context}
-          variant="outlined"
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+                  <TextField className="cdocumenttype"
+                id="documenttype"
+                required
+                select
+                fullWidth
+                label="Tipo de documento"
+                defaultValue="V-"
+                value={documenttype}
+                onChange={docChange}
+                variant="outlined"
+              >
+                {doctype.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <TextField className="cidnumber"
+                  id="idnumber"
+                  required
+                  fullWidth
+                  label="Nro de documento"
+                  type="input"
+                  
+                  defaultValue=''        
+                  startadornment={<InputAdornment position="start">{documenttype}</InputAdornment>}
+                  InputProps={{
+                    inputComponent: NumberFormatCustom,
+                  }}
+                  variant="outlined"/>
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <TextField className="maritalstatus"
+                    id="idmaritalstatus"
+                    select
+                    fullWidth
+                    label="Estado civil"
+                    value={mastatus}
+                    onChange={statusSelect}         
+                    variant="outlined"
         >
-          {bcontext.map((option) => (
+          {mstatus.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
         </TextField>
-        <TextField className="ccognitive"
-          id="cognitive"
-          label="Rasgos cognitivos"
-          multiline
-          placeholder="Rasgos cognitivos"
-          variant="outlined"
-        />
-        <TextField className="cdiagnostic"
-          id="diagnostic"
-          label="Diagnostico"
-          name="diagnostico"
-          multiline
-          placeholder="Diagnostico"
-          variant="outlined"
-        />
-    </form>
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <TextField className="ctel1"
+                id= "tel1"
+                fullWidth
+                label="Telefono"
+                type="text"
+                value='58'
+                name="tel1"
+                
+                InputProps={{
+                    inputComponent: Tel,
+                  }}
+                variant="outlined"/>
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
+            <TextField className="ctel2"
+                id= "tel2"
+                fullWidth
+                label="Telefono secundario"
+                type="text"
+                value='58'
+                name="tel2"
+                
+                InputProps={{
+                    inputComponent: Tel,
+                  }}
+                variant="outlined"/>
+            </Grid>
+            <Grid item xl={9} lg={9} md={9} sm={12} xs={12}>
+            <TextField
+                autoComplete="address"
+                name="addres"
+                variant="outlined"
+                
+                required
+                fullWidth
+                id="firstName"
+                label="Direccion"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="municipio"
+                name="municipio"
+                variant="outlined"
+                
+                required
+                fullWidth
+                id="municipio"
+                label="Municipio"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="estate"
+                name="estate"
+                variant="outlined"
+                required
+                fullWidth
+                id="estate"
+                label="Estado"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="Pais"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="Codigo Postal"
+                autoFocus
+              />
+            </Grid>
+            </Grid>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>            
+                                                                              <Typography variant="h6" color="initial">Detalles</Typography>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+            <AppBar position="static" color="default" >
+                <Tabs
+                  value={tab1value}
+                  onChange={tab1handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  centered
+                  FullWidthTabs
+                  aria-label="full width tabs example"
+                >
+                  <Tab label="Motivo de consulta" {...a11yProps(0)} />
+                  <Tab label="Ant. personales" {...a11yProps(1)} />
+                  <Tab label="Ant. familiares" {...a11yProps(2)} />
+                  <Tab label="Alergias" {...a11yProps(3)} />
+                  <Tab label="Vacunas" {...a11yProps(4)} />
+                </Tabs>
+              </AppBar>
+              <SwipeableViews
+                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                index={tab1value}
+                onChangeIndex={tab1handleChangeIndex}
+              >
+            <TabPanel value={tab1value} index={0} dir={theme.direction}>                  
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="motivo_consulta"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="motivo_consulta"
+                        label="Motivo de consulta"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab1value} index={1} dir={theme.direction}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="ant_personales"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="ant_personales"
+                        label="Antecedentes personales"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab1value} index={2} dir={theme.direction}>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="ant_familiares"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="ant_familiares"
+                        label="Antecedentes familiares"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab1value} index={3} dir={theme.direction}>
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="Alergias"
+                        variant="outlined"
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="allergies"
+                        label="Alergias"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab1value} index={4} dir={theme.direction}>
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="Vacunas"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="Vaccines"
+                        label="Antecedentes familiares"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>      
+          </SwipeableViews>
+            </Grid>
+            
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+            <ExpansionPanel defaultExpanded>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography className={classes.heading} variant="h6">Examinacion</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <Grid container spacing={2}>
+          <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+            <AppBar position="static" color="default" >
+                <Tabs
+                  value={tab2value}
+                  onChange={tab2handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  centered
+                  FullWidthTabs
+                  aria-label="full width tabs example"
+                >
+                  <Tab label="Examen Fisico" {...tab2Props(0)} />
+                  <Tab label="Medicamentos" {...tab2Props(1)} />
+                  <Tab label="Observaciones Generales" {...tab2Props(2)} />
+                  <Tab label="Signos Cognitivos" {...tab2Props(3)} />
+                  <Tab label="Intervenciones Quirurgicas" {...tab2Props(4)} />
+                </Tabs>
+              </AppBar>
+              <SwipeableViews
+                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                index={tab2value}
+                onChangeIndex={tab2handleChangeIndex}
+              >
+            <TabPanel value={tab2value} index={0} dir={theme.direction}>                  
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="motivo_consulta"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="motivo_consulta"
+                        label="Motivo de consulta"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab2value} index={1} dir={theme.direction}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="ant_personales"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="ant_personales"
+                        label="Antecedentes personales"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab2value} index={2} dir={theme.direction}>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="ant_familiares"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="ant_familiares"
+                        label="Antecedentes familiares"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab2value} index={3} dir={theme.direction}>
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="Alergias"
+                        variant="outlined"
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="allergies"
+                        label="Alergias"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>
+            <TabPanel value={tab2value} index={4} dir={theme.direction}>
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <TextField
+                        autoComplete=""
+                        name="Vacunas"
+                        variant="outlined"
+                        required
+                        multiline
+                        fullWidth
+                        rowsMax="10"
+                        id="Vaccines"
+                        label="Antecedentes familiares"
+                        autoFocus
+                      />
+                    </Grid>
+            </TabPanel>      
+          </SwipeableViews>
+            </Grid>
+            </Grid>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+            </Grid>
+            
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="#" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={5}>
+        <Copyright />
+      </Box>
+    </Container>
   );
 }

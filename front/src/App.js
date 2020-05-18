@@ -10,7 +10,7 @@ import Card from './components/Card'
 import History from './components/History'
 import Formpi from './components/Forms/Formpi'
 import Test from './components/Test'
-
+import Tab from './components/Tab'
 
 class App extends Component {
   render() {
@@ -27,6 +27,7 @@ class App extends Component {
             <Route exact path="/History" component={History}/>
             <Route exact path="/Formpi" component={Formpi}/>
             <Route exact path="/Test" component={Test} />
+            <Route exact path="/Tab" component={Tab}/>
           </div>
         </div>
       </Router>
