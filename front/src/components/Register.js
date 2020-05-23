@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { register } from './UserFunctions'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Container from '@material-ui/core/Container'
+
+
 
 class Register extends Component {
   constructor() {
     super()
     this.state = {
       first_name: '',
+      username: '',
       last_name: '',
       email: '',
       password: '',
@@ -26,6 +32,7 @@ class Register extends Component {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     }
 
@@ -36,55 +43,106 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 mt-5 mx-auto">
-            <form noValidate onSubmit={this.onSubmit}>
-              <h1 className="h3 mb-3 font-weight-normal">Register</h1>
-              <div className="form-group">
-                <label htmlFor="name">First name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="first_name"
-                  placeholder="Enter your first name"
+      <Container maxWidth="xs" alignContent="space-around">
+        <Grid container spacing={2}>
+        <form noValidate onSubmit={this.onSubmit}>
+              <h1>Register</h1>
+              <Grid Item xl={6} lg={6} md={6} sm={6} xs={6}>
+                <label htmlFor="name">Ingrese su nombre</label>
+                <TextField
+                  id="first"
+                  label="Nombres"
                   value={this.state.first_name}
                   onChange={this.onChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="name">Last name</label>
-                <input
                   type="text"
-                  className="form-control"
-                  name="last_name"
-                  placeholder="Enter your lastname name"
+                  htmlFor="name"
+                  name="first_name"
+                  variant="outlined"
+                  required
+                  autoComplete
+                  autoFocus
+                  placeholder="Ingrese su nombre"
+                  size="small"
+                />
+              </Grid>
+              <Grid Item xl={6} lg={6} md={6} sm={6} xs={6}>
+                <label htmlFor="last" >Ingrese su apellido</label>
+                <TextField
+                  id="last"
+                  label="Apellidos"
                   value={this.state.last_name}
                   onChange={this.onChange}
+                  type="text"
+                  htmlFor="name"
+                  name="last_name"
+                  
+                  variant="outlined"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                  size="small"
+                  placeholder="Ingrese su apellido"
                 />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email address</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="Enter email"
+                </Grid>
+                <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <label htmlFor="username" >Ingrese su usuario</label>
+                <TextField
+                  id="username"
+                  label="Usuario"
+                  value={this.state.username}
+                  onChange={this.onChange}
+                  type="text"
+                  htmlFor="username"
+                  name="username"
+                  fullWidth
+                  variant="outlined"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                  size="small"
+                  placeholder="Ingrese su nombre de usuario"
+                />
+              </Grid>
+              <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <label htmlFor="email" >Ingrese su Correo Electronico</label>
+                <TextField
+                  id="email"
+                  label="Email"
                   value={this.state.email}
                   onChange={this.onChange}
+                  type="email"
+                  htmlFor="email"
+                  name="email"
+                  fullWidth
+                  variant="outlined"
+                  placeholder="Ingrese su correo electronico"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                  size="small"
                 />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="Password"
+              </Grid>
+              <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <label htmlFor="password">Ingrese su contraseña</label>
+                <TextField
+                  id="password"
+                  label="Password"
                   value={this.state.password}
                   onChange={this.onChange}
+                  type="password"
+                  htmlFor="name"
+                  name="password"
+                  fullWidth
+                  variant="outlined"
+                  required
+                  autoFocus
+                  placeholder="Ingrese su contraseña"
+                  size="small"
                 />
-              </div>
+              </Grid>
               <button
                 type="submit"
                 className="btn btn-lg btn-primary btn-block"
@@ -92,9 +150,8 @@ class Register extends Component {
                 Register!
               </button>
             </form>
-          </div>
-        </div>
-      </div>
+        </Grid>
+      </Container>
     )
   }
 }

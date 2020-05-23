@@ -24,6 +24,7 @@
     "jsonwebtoken": "^7.4.3",
     "mysql": "^2.18.1",
     "mysql2": "^1.7.0",
+    "react-forms-validator": "^1.0.8",
     "sequelize": "^4.44.4"
   },
   "devDependencies": {

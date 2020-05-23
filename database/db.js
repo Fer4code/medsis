@@ -6,7 +6,7 @@ const sequelize = new Sequelize('reactlogin', 'root', '', {
   operatorsAliases: false,
 
   pool: {
-    max: 5,
+    max: 7,
     min: 0,
     acquire: 30000,
     idle: 10000

@@ -89,7 +89,6 @@ function NumberFormatCustom(props) {
           },
         });
       }}
-
       isNumericString
       maxLength="12"
       prefix={documenttype}
@@ -229,9 +228,10 @@ const useStyles = makeStyles((theme) => ({
   },  
 }));
 
+
 export default function SignUp() {
   const classes = useStyles();
-  const [documenttype, setDocument] = React.useState('V-')
+  const [documenttype, setDocument] = React.useState('')
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [blood, setBlood] = React.useState('')
   const [sex, setSex] = React.useState('')
@@ -420,6 +420,7 @@ return (
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
                   <TextField className="cdocumenttype"
                 id="documenttype"
+                name="docname"
                 required
                 select
                 fullWidth
@@ -428,6 +429,7 @@ return (
                 value={documenttype}
                 onChange={docChange}
                 variant="outlined"
+                autoComplete
               >
                 {doctype.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -444,10 +446,11 @@ return (
                   label="Nro de documento"
                   type="input"
                   
-                  defaultValue=''        
-                  startadornment={<InputAdornment position="start">{documenttype}</InputAdornment>}
+                          
+                  startadornment={<InputAdornment></InputAdornment>}
                   InputProps={{
                     inputComponent: NumberFormatCustom,
+                    
                   }}
                   variant="outlined"/>
             </Grid>
@@ -797,13 +800,6 @@ return (
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}>

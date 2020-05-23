@@ -12,10 +12,11 @@ process.env.SECRET_KEY = 'secret'
 users.post('/register', (req, res) => {
   const today = new Date()
   const userData = {
-    first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
+    username: req.body.username,
     password: req.body.password,
+    first_name: req.body.first_name,
     created: today
   }
 
@@ -31,7 +32,7 @@ users.post('/register', (req, res) => {
           userData.password = hash
           User.create(userData)
             .then(user => {
-              res.json({ status: user.email + 'Registered!' })
+              res.json({ status: user.email + ' Registered!' })
             })
             .catch(err => {
               res.send('error: ' + err)

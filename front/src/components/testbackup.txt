@@ -1,106 +1,102 @@
-<Grid container spacing={2}>
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-            <AppBar position="static" color="default" >
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  indicatorColor="primary"
-                  textColor="primary"
-                  centered
-                  FullWidthTabs
-                  aria-label="full width tabs example"
-                >
-                  <Tab label="Motivo de consulta" {...a11yProps(0)} />
-                  <Tab label="Ant. personales" {...a11yProps(1)} />
-                  <Tab label="Ant. familiares" {...a11yProps(2)} />
-                  <Tab label="Alergias" {...a11yProps(3)} />
-                  <Tab label="Vacunas" {...a11yProps(4)} />
-                </Tabs>
-              </AppBar>
-              <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={value}
-                onChangeIndex={handleChangeIndex}
+<Container componenr="main" maxWidth="sm" >
+        <form noValidate onSubmit={this.onSubmit}>
+            <Grid container spacing={2}>
+              <Grid Item xl={6} lg={6} md={12} sm={12} xs={12}>
+                <TextField
+                  id="first"
+                  label="Nombres"
+                  value={this.state.first_name}
+                  onChange={this.onChange}
+                  type="text"
+                  htmlFor="name"
+                  name="first_name"
+                  fullWidth
+                  variant="outlined"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                  placeholder="Ingrese su nombre"
+                />
+              </Grid>
+              <Grid Item xl={6} lg={6} md={12} sm={12} xs={12}>
+                <TextField
+                  id="last"
+                  label="Apellidos"
+                  value={this.state.last_name}
+                  onChange={this.onChange}
+                  type="text"
+                  htmlFor="name"
+                  name="last_name"
+                  fullWidth
+                  variant="outlined"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                  placeholder="Ingrese su apellido"
+                />
+              </Grid><Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <TextField
+                  id="username"
+                  label="Usuario"
+                  value={this.state.username}
+                  onChange={this.onChange}
+                  type="text"
+                  htmlFor="username"
+                  name="username"
+                  fullWidth
+                  variant="outlined"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                  placeholder="Ingrese su nombre de usuario"
+                />
+              </Grid>
+              <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <TextField
+                  id="email"
+                  label="Email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  type="email"
+                  htmlFor="email"
+                  name="email"
+                  fullWidth
+                  variant="outlined"
+                  placeholder="Ingrese su correo electronico"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                />
+              </Grid>
+              <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <TextField
+                  id="password"
+                  label="Password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                  type="password"
+                  htmlFor="name"
+                  name="password"
+                  fullWidth
+                  variant="outlined"
+                  required
+                  autoComplete
+                  autoCapitalize
+                  autoFocus
+                  placeholder="Ingrese su contraseña"
+                />
+              </Grid>
+              <button
+                
+                type="submit"
+                className="btn btn-lg btn-primary btn-block"
               >
-            <TabPanel value={value} index={0} dir={theme.direction}>                  
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <TextField
-                        autoComplete=""
-                        name="motivo_consulta"
-                        variant="outlined"
-                        required
-                        multiline
-                        fullWidth
-                        rowsMax="10"
-                        id="motivo_consulta"
-                        label="Motivo de consulta"
-                        autoFocus
-                      />
-                    </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <TextField
-                        autoComplete=""
-                        name="ant_personales"
-                        variant="outlined"
-                        required
-                        multiline
-                        fullWidth
-                        rowsMax="10"
-                        id="ant_personales"
-                        label="Antecedentes personales"
-                        autoFocus
-                      />
-                    </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={2} dir={theme.direction}>
-              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <TextField
-                        autoComplete=""
-                        name="ant_familiares"
-                        variant="outlined"
-                        required
-                        multiline
-                        fullWidth
-                        rowsMax="10"
-                        id="ant_familiares"
-                        label="Antecedentes familiares"
-                        autoFocus
-                      />
-                    </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={3} dir={theme.direction}>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <TextField
-                        autoComplete=""
-                        name="Alergias"
-                        variant="outlined"
-                        multiline
-                        fullWidth
-                        rowsMax="10"
-                        id="allergies"
-                        label="Alergias"
-                        autoFocus
-                      />
-                    </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={4} dir={theme.direction}>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <TextField
-                        autoComplete=""
-                        name="Vacunas"
-                        variant="outlined"
-                        required
-                        multiline
-                        fullWidth
-                        rowsMax="10"
-                        id="Vaccines"
-                        label="Antecedentes familiares"
-                        autoFocus
-                      />
-                    </Grid>
-            </TabPanel>      
-          </SwipeableViews>
-            </Grid>
-            </Grid>
+                Register!
+              </button>
+          </Grid>
+        </form>
+      </Container>
