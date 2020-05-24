@@ -1,11 +1,31 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
 
 class Landing extends Component {
+  constructor() {
+    super()
+    this.state = {
+      first_name: '',
+      last_name: '',
+      email: '',
+      errors: {}
+    }
+  }
+  
   logOut(e) {
     e.preventDefault()
     localStorage.removeItem('usertoken')
     this.props.history.push(`/`)
+  }
+  componentDidMount() {
+    const token = localStorage.usertoken
+    const decoded = jwt_decode(token)
+    this.setState({
+      first_name: decoded.first_name,
+      last_name: decoded.last_name,
+      email: decoded.email
+    })
   }
 
   render() {
