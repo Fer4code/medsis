@@ -1,102 +1,330 @@
-<Container componenr="main" maxWidth="sm" >
-        <form noValidate onSubmit={this.onSubmit}>
-            <Grid container spacing={2}>
-              <Grid Item xl={6} lg={6} md={12} sm={12} xs={12}>
-                <TextField
-                  id="first"
-                  label="Nombres"
-                  value={this.state.first_name}
-                  onChange={this.onChange}
-                  type="text"
-                  htmlFor="name"
-                  name="first_name"
-                  fullWidth
-                  variant="outlined"
-                  required
-                  autoComplete
-                  autoCapitalize
-                  autoFocus
-                  placeholder="Ingrese su nombre"
-                />
-              </Grid>
-              <Grid Item xl={6} lg={6} md={12} sm={12} xs={12}>
-                <TextField
-                  id="last"
-                  label="Apellidos"
-                  value={this.state.last_name}
-                  onChange={this.onChange}
-                  type="text"
-                  htmlFor="name"
-                  name="last_name"
-                  fullWidth
-                  variant="outlined"
-                  required
-                  autoComplete
-                  autoCapitalize
-                  autoFocus
-                  placeholder="Ingrese su apellido"
-                />
-              </Grid><Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
-                <TextField
-                  id="username"
-                  label="Usuario"
-                  value={this.state.username}
-                  onChange={this.onChange}
-                  type="text"
-                  htmlFor="username"
-                  name="username"
-                  fullWidth
-                  variant="outlined"
-                  required
-                  autoComplete
-                  autoCapitalize
-                  autoFocus
-                  placeholder="Ingrese su nombre de usuario"
-                />
-              </Grid>
-              <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
-                <TextField
-                  id="email"
-                  label="Email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  type="email"
-                  htmlFor="email"
-                  name="email"
-                  fullWidth
-                  variant="outlined"
-                  placeholder="Ingrese su correo electronico"
-                  required
-                  autoComplete
-                  autoCapitalize
-                  autoFocus
-                />
-              </Grid>
-              <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
-                <TextField
-                  id="password"
-                  label="Password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  type="password"
-                  htmlFor="name"
-                  name="password"
-                  fullWidth
-                  variant="outlined"
-                  required
-                  autoComplete
-                  autoCapitalize
-                  autoFocus
-                  placeholder="Ingrese su contraseña"
-                />
-              </Grid>
-              <button
-                
-                type="submit"
-                className="btn btn-lg btn-primary btn-block"
+import React from 'react';
+
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import InputBase from '@material-ui/core/InputBase';
+import Badge from '@material-ui/core/Badge';
+import { Link, withRouter, Redirect, useHistory } from 'react-router-dom'
+import { Logo } from './img/MD1.svg'
+import Grid from '@material-ui/core/Grid'
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    background : '#0A90D1'
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    position: 'relative',
+    flexGrow: 1,
+    color: 'white',
+  },
+  subtitle: {
+    fontSize: 'subtitle',
+    marginLeft: theme.spacing(2),
+    color: 'white',
+    align: 'center',
+    justifyContent: 'center',
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: (theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: (theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  imagen: {
+    width: 135,
+    height: 43.54
+  },
+}));
+
+export default function MenuAppBar() {
+  const classes = useStyles();
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const history = useHistory();
+  const token = localStorage.usertoken
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const logOut =(e) => {
+    e.preventDefault()
+    localStorage.removeItem('usertoken')
+    history.push('/')
+  };
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
+  );
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+        {token && (
+            <div>
+            <MenuItem onClick={handleMenu}>
+              <IconButton
+                aria-label="account of current user"
+                color="inherit"
               >
-                Register!
-              </button>
-          </Grid>
-        </form>
-      </Container>
+                <AccountCircle />
+              </IconButton>
+              <p>Perfil</p>
+              </MenuItem>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={logOut}>Salir</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+            </Menu>
+            </div>
+          )}
+      <MenuItem>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit">
+          <Badge badgeContent={11} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+    </Menu>
+  );
+  return (
+    <div >
+      <AppBar position="static" className={classes.root}>
+        
+        <Toolbar>
+            <Grid container >
+              <Grid item>
+                  <img src='./img/diagnose.svg' className={classes.imagen} alt="logo"/>
+              </Grid>
+            </Grid>       
+
+          <Link to="/login">          
+          <Typography className={classes.subtitle}>
+            Login
+          </Typography>
+          </Link>
+          <Link to='./history'>
+          <MenuItem>
+           <Typography className={classes.subtitle}>
+               History
+           </Typography>
+          </MenuItem>
+          </Link>
+          <Link to="/register">          
+          <Typography className={classes.subtitle} >
+            Register
+          </Typography>
+          </Link>
+          <Link to="/test">          
+          <Typography className={classes.subtitle}>
+            Test
+          </Typography>
+          </Link>
+          <Link to="/Formpi">          
+          <Typography className={classes.subtitle}>
+            Formpi
+          </Typography>
+          </Link>
+          <Link to="/Card">          
+          <Typography className={classes.subtitle}>
+            Card
+          </Typography>
+          </Link>
+          <Link to="/profile">          
+          <Typography className={classes.subtitle}>
+            Profile
+          </Typography>
+          </Link>
+          <div className={classes.grow}/>
+          <div className={classes.sectionDesktop}>
+          {token && (
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={logOut}>Salir</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+          )}
+          </div>
+          <div className={classes.sectionMobile}>
+              
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Grid container >
+              <Grid item>
+                  <img src='./img/diagnose.svg' className={classes.imagen} alt="logo"/>
+              </Grid>
+            </Grid>
+      {renderMobileMenu}
+      {renderMenu}
+    </div>
+  );
+}

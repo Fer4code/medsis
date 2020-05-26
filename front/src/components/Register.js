@@ -26,8 +26,8 @@ const useStyles = theme => ({
     marginTop: theme.spacing(8),
   },
   submit: {
-    fontSize: theme.typography.pxToRem(20),
-    margin: theme.spacing(8, 0, 2),
+    fontSize: theme.typography.pxToRem(14),
+    margin: theme.spacing(4, 0, 2),
   },
   root: {
     width: '100%',
@@ -107,7 +107,6 @@ class Register extends Component {
                                 required
                                 autoComplete="true"
                                 autoCapitalize="true"
-                                autoFocus
                                 placeholder="Ingrese su nombre"
                                 size="small"
                                 />
@@ -126,7 +125,6 @@ class Register extends Component {
                                 required
                                 autoComplete="true"
                                 autoCapitalize="true"
-                                autoFocus
                                 size="small"
                                 placeholder="Ingrese su apellido"
                                 />
@@ -144,7 +142,6 @@ class Register extends Component {
                                 variant="outlined"
                                 required
                                 autoComplete="true"
-                                autoFocus
                                 size="small"
                                 placeholder="Usuario"
                                 />
@@ -163,7 +160,6 @@ class Register extends Component {
                                 placeholder="Ingrese su correo electronico"
                                 required
                                 autoComplete="true"
-                                autoFocus
                                 size="small"
                                 />
                         </Grid>
@@ -177,9 +173,8 @@ class Register extends Component {
                                     htmlFor="password"
                                     name="password"
                                     fullWidth
-                                    variant="filled"
+                                    variant="outlined"
                                     required
-                                    autoFocus
                                     placeholder="Ingrese su contraseña"
                                     size="small"
                                     />
@@ -194,9 +189,8 @@ class Register extends Component {
                                     htmlFor="password"
                                     name="password2"
                                     fullWidth
-                                    variant="filled"
+                                    variant="outlined"
                                     required
-                                    autoFocus
                                     placeholder="Confirme su contraseña"
                                     size="small"
                                     />

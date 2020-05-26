@@ -74,7 +74,7 @@ function tab2Props(index) {
 }
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
-  const [documenttype, setDocument] = React.useState('V-')  
+  const [documenttype] = React.useState('V-')  
   return (
     <NumberFormat
       {...other}
@@ -295,8 +295,6 @@ return (
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
-                
               />
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
@@ -307,9 +305,7 @@ return (
                 required
                 fullWidth
                 id="firstName"
-                label="Segundo Nombre"
-                autoFocus
-                
+                label="Segundo Nombre"                
               />
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
@@ -320,9 +316,7 @@ return (
                 required
                 fullWidth
                 id="last_name"
-                label="Apellido"
-                autoFocus
-                
+                label="Apellido"                
               />
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
@@ -333,9 +327,7 @@ return (
                 required
                 fullWidth
                 id="second_last_name"
-                label="Segundo Apellido"
-                autoFocus
-                
+                label="Segundo Apellido"                
               />
             </Grid>
             <ExpansionPanel defaultExpanded>
@@ -373,7 +365,6 @@ return (
           id="age"
           label="Age"
           fullWidth
-          
           defaultValue="Age"
           InputProps={{
             readOnly: true,
@@ -479,7 +470,6 @@ return (
                 type="text"
                 value='58'
                 name="tel1"
-                
                 InputProps={{
                     inputComponent: Tel,
                   }}
@@ -493,7 +483,6 @@ return (
                 type="text"
                 value='58'
                 name="tel2"
-                
                 InputProps={{
                     inputComponent: Tel,
                   }}
@@ -504,12 +493,11 @@ return (
                 autoComplete="address"
                 name="addres"
                 variant="outlined"
-                
                 required
                 fullWidth
                 id="firstName"
                 label="Direccion"
-                autoFocus
+                
               />
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
@@ -522,7 +510,7 @@ return (
                 fullWidth
                 id="municipio"
                 label="Municipio"
-                autoFocus
+                
               />
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
@@ -534,7 +522,7 @@ return (
                 fullWidth
                 id="estate"
                 label="Estado"
-                autoFocus
+                
               />
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
@@ -546,7 +534,7 @@ return (
                 fullWidth
                 id="firstName"
                 label="Pais"
-                autoFocus
+                
               />
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
@@ -558,7 +546,7 @@ return (
                 fullWidth
                 id="firstName"
                 label="Codigo Postal"
-                autoFocus
+                
               />
             </Grid>
             </Grid>
@@ -600,7 +588,7 @@ return (
                         rowsMax="10"
                         id="motivo_consulta"
                         label="Motivo de consulta"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -616,7 +604,7 @@ return (
                         rowsMax="10"
                         id="ant_personales"
                         label="Antecedentes personales"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -632,7 +620,7 @@ return (
                         rowsMax="10"
                         id="ant_familiares"
                         label="Antecedentes familiares"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -647,7 +635,7 @@ return (
                         rowsMax="10"
                         id="allergies"
                         label="Alergias"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -663,7 +651,7 @@ return (
                         rowsMax="10"
                         id="Vaccines"
                         label="Antecedentes familiares"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>      
@@ -716,7 +704,7 @@ return (
                         rowsMax="10"
                         id="motivo_consulta"
                         label="Motivo de consulta"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -732,7 +720,7 @@ return (
                         rowsMax="10"
                         id="ant_personales"
                         label="Antecedentes personales"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -748,7 +736,7 @@ return (
                         rowsMax="10"
                         id="ant_familiares"
                         label="Antecedentes familiares"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -763,7 +751,7 @@ return (
                         rowsMax="10"
                         id="allergies"
                         label="Alergias"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>
@@ -779,7 +767,7 @@ return (
                         rowsMax="10"
                         id="Vaccines"
                         label="Antecedentes familiares"
-                        autoFocus
+                        
                       />
                     </Grid>
             </TabPanel>      

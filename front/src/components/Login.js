@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { login } from './UserFunctions'
 import logo from './img/diagnose.svg'
-
+import './login.css'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
@@ -88,20 +88,19 @@ class Login extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Container maxWidth="xs" className={classes.form}>
-      
+      <Container maxWidth="xs" className={classes.form}>     
             <form noValidate onSubmit={this.onSubmit}>
               <div>
                 <img className={classes.imagen} src={logo} alt="logo"/>
               </div>
               <h1 className={classes.title} >MedSys</h1>
               <Grid container spacing={2} >
-              <Grid Item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Grid className={classes.paper} Item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <Typography variant="subtitle2" color="initial">Correo electronico</Typography>
                 <TextField
                   id="first"
-                  value={this.state.email}
                   onChange={this.onChange}
+                  value={this.state.email}
                   type="text"
                   htmlFor="email"
                   name="email"
@@ -124,8 +123,7 @@ class Login extends Component {
                   name="password"
                   variant="outlined"
                   required
-                  autoComplete
-                  autoFocus
+                  autoComplete="string"
                   fullWidth
                   placeholder="Ingrese su contraseña"
                 />
